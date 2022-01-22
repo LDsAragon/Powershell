@@ -1,12 +1,3 @@
-
-
-$arrayRutas = Get-Content settings.json | ConvertFrom-Json  
-
-foreach ($ruta in $arrayRutas) {
-    abrirArchivosEnCarpeta($ruta)
-}
-
-
 function abrirArchivosEnCarpeta($ubicacion) {
     
     #Si la ubicacion/directorio de la carpeta no es vacia, Vuamos 
@@ -50,3 +41,14 @@ function verContenidoArray($rutaNombre) {
     }
 
 }
+
+
+
+#Buscar en el json
+ $arrayRutas = Get-Content E:\Archivos\Documentos\GitHub\Powershell\settings.json | ConvertFrom-Json  
+
+ foreach ($ruta in $arrayRutas) {
+     abrirArchivosEnCarpeta($ruta)
+ }
+
+
