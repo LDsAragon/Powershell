@@ -1,0 +1,11 @@
+
+WEB DEL COMPILADOR --> https://www.powershellgallery.com/packages/ps2exe/1.0.4
+
+COMANDO PARA INSTALAR COMPILADOR
+
+Install-Module -Name ps2exe -RequiredVersion 1.0.4 
+
+
+COMANDO PARA COMPILAR
+
+PS2EXE.ps1 -InputFile E:\Archivos\Documentos\GitHub\Powershell\Powershell_Final_RutasDinamicas.ps1 -OutputFile E:\Archivos\Documentos\GitHub\Powershell\Ejecutables\Powershell_Final_RutasDinamicas.exe
