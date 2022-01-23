@@ -1,19 +1,3 @@
-function Get-RelativePath {
-    param($path, $relativeTo)
-    # strip trailing slash
-    $relativeTo = Join-Path `
-                      (Split-Path -Parent $relativeTo) `
-                      (Split-Path -Leaf $relativeTo)
-    $relPath = Split-Path -Leaf $path
-    $path = Split-Path -Parent $path
-    do {    
-        $leaf = Split-Path -Leaf $path
-        $relPath = Join-Path $leaf $relPath
-        $path = Split-Path -Parent $path
-    } until (($path -eq $relativeTo) -Or ($path.Length -eq 0))
-    $relPath
-}
-
 
 function abrirArchivosEnCarpeta($ubicacion) {
     
@@ -60,27 +44,39 @@ function verContenidoArray($rutaNombre) {
 }
 
 
-
-
-$root = "C:\"
-$current = "C:\"
-$tmp = Get-Location
-Set-Location $root
-Resolve-Path -relative $current
-Set-Location $tmp
-
-Write-Host "Viendo ruta"  $tmp\settings.json -ForegroundColor DarkMagenta 
+#Buscar el archivo de settings en el path relativo
+$relativePath = $PWD.Path.Trim() 
 
 
 #Buscar el archivo de settings en el path relativo
-# $relativePath = $PWD.Path.Trim() 
+$configs = Get-Content $relativePath\settings.json | ConvertFrom-Json
 
-# Write-Host "Viendo ruta"  $relativePath\settings.json -ForegroundColor DarkMagenta 
+Write-Host "Viendo ruta"  $relativePath\settings.json -ForegroundColor DarkMagenta 
+
+#Buscar el archivo de files en el path relativo
+Write-Host "Viendo ruta"  $relativePath\files.json -ForegroundColor DarkMagenta 
 
 #Buscar en el json
- $arrayRutas = Get-Content $tmp\settings.json | ConvertFrom-Json  
+ $arrayRutas = Get-Content $relativePath\files.json | ConvertFrom-Json  
 
- foreach ($ruta in $arrayRutas) {
+
+$ingnorarExecutables = $configs.ignorarExe
+
+
+# Todo, Implementar filtrado de elementos del array por 
+# medio de filtrar los elementos con . exe 
+
+#volverlo modular y expandible
+if (ingnorarExecutables) {
+
+    
+
+}
+
+
+
+
+foreach ($ruta in $arrayRutas) {
      abrirArchivosEnCarpeta($ruta)
- }
+}
 
